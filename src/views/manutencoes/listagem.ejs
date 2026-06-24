@@ -1,0 +1,476 @@
+<style>
+
+.linha-preventiva {
+
+  background-color: #f3e8ff !important;
+
+}
+
+.linha-preventiva:hover {
+
+  background-color: #ead7ff !important;
+
+}
+
+</style>
+
+  <div class="d-sm-flex align-items-center justify-content-between mb-4">
+
+  <h1 class="h3 mb-0 text-gray-800">
+    Solicitações de Manutenção
+  </h1>
+
+</div>
+
+<div class="card shadow mb-4">
+
+  <div class="card-header py-3">
+
+    <h6 class="m-0 font-weight-bold text-primary">
+      Lista de Solicitações
+    </h6>
+
+  </div>
+
+  <div class="card-body">
+
+    <!-- PESQUISA -->
+    <div class="row mb-3">
+
+      <div class="col-md-4">
+
+        <div class="input-group">
+
+          <input
+            type="text"
+            id="pesquisaTabela"
+            class="form-control bg-light border-0 small"
+            placeholder="Pesquisar solicitação..."
+          >
+
+          <div class="input-group-append">
+
+            <button class="btn btn-primary" type="button">
+
+              <i class="fas fa-search fa-sm"></i>
+
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- TABELA -->
+    <div class="table-responsive">
+
+      <table class="table table-bordered table-hover">
+
+        <thead class="bg-primary text-white">
+
+          <tr>
+
+            <th>Tipo</th>
+            <th>Local</th>
+            <th>Descrição</th>
+            <th>Responsável</th>
+            <th>Valor</th>
+            <th>Prioridade</th>
+            <th>Fornecedor</th>
+            <th>Equipamento</th>
+            <th>Status</th>
+            <th>Data</th>
+            <th style="width:150px">Ações</th>
+
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+        <% if(!manutencoes || manutencoes.length === 0){ %>
+
+          <tr>
+
+            <td colspan="10" class="text-center">
+              Nenhuma solicitação cadastrada
+            </td>
+
+          </tr>
+
+        <% } else { %>
+
+        <% manutencoes.forEach(function(m){ %>
+
+          <tr class="<%= m.tipo === 'preventiva' ? 'linha-preventiva' : '' %>"> 
+
+            <!-- TIPO -->
+            <td>
+
+              <% if(m.tipo === 'elétrica'){ %>
+
+                <i class="fas fa-bolt text-warning"></i>
+
+              <% } else if(m.tipo === 'hidráulica'){ %>
+
+                <i class="fas fa-wrench text-primary"></i>
+
+              <% } else if(m.tipo === 'geral'){ %>
+
+                <i class="fas fa-tools text-secondary"></i>
+
+              <% } else if(m.tipo === 'civil'){ %>
+
+                <i class="fas fa-building text-dark"></i>
+
+              <% } else if(m.tipo === 'climatização'){ %>
+
+                <i class="fas fa-snowflake text-info"></i>
+
+              <% } else if(m.tipo === 'segurança'){ %>
+
+                <i class="fas fa-shield-alt text-danger"></i>
+
+              <% } %>
+
+              <span class="ml-1">
+                 <%= m.tipo %>
+              </span>
+
+                 <% if(m.preventiva){ %>
+
+                   <span class="badge badge-primary ml-1">
+
+                  Preventiva
+
+                   </span>
+
+                  <% } %>
+
+                   </td>
+
+            <!-- LOCAL -->
+            <td>
+              <%= m.local %>
+            </td>
+
+            <!-- DESCRIÇÃO -->
+            <td>
+              <%= m.descricao %>
+            </td>
+
+            <!-- RESPONSÁVEL -->
+            <td>
+
+              <i class="fas fa-user text-primary"></i>
+
+              <span class="ml-1">
+                <%= m.responsavel || 'Não informado' %>
+              </span>
+
+            </td>
+
+            <!-- VALOR -->
+            <td>
+
+              R$
+              <%= Number(m.valor || 0).toFixed(2) %>
+
+            </td>
+
+            <!-- PRIORIDADE -->
+            <td>
+
+              <% if(m.prioridade?.nome === 'Alta'){ %>
+
+                <span class="badge badge-danger">
+                  Alta
+                </span>
+
+              <% } else if(m.prioridade?.nome === 'Média'){ %>
+
+                <span class="badge badge-warning">
+                  Média
+                </span>
+
+              <% } else if(m.prioridade?.nome === 'Baixa'){ %>
+
+                <span class="badge badge-secondary">
+                  Baixa
+                </span>
+
+              <% } else { %>
+
+                <span class="badge badge-light">
+                  Não definida
+                </span>
+
+              <% } %>
+
+            </td>
+
+            <!-- FORNECEDOR -->
+            <td>
+
+              <% if(m.fornecedor){ %>
+
+                <span class="badge badge-info p-2">
+
+                  <i class="fas fa-building"></i>
+
+                  <%= m.fornecedor.empresa %>
+
+                </span>
+
+              <% } else { %>
+
+                <span class="text-muted">
+                  Não informado
+                </span>
+
+              <% } %>
+
+            </td>
+
+            <!-- EQUIPAMENTO -->
+              <td>
+
+                 <% if(m.equipamento){ %>
+
+                   <span class="badge badge-secondary p-2">
+
+                      <i class="fas fa-cogs"></i>
+
+                     <%= m.equipamento.nome %>
+
+                   </span>
+
+               <% } else { %>
+
+               <span class="text-muted">
+               Não informado
+               </span>
+
+               <% } %>
+
+              </td>
+
+            <!-- STATUS -->
+            <td>
+
+              <span class="badge
+                <%= m.status === 'aberto' ? 'badge-warning' : '' %>
+                <%= m.status === 'em andamento' ? 'badge-info' : '' %>
+                <%= m.status === 'concluído' ? 'badge-success' : '' %>
+                <%= m.status === 'em análise' ? 'badge-dark' : '' %>
+                <%= m.status === 'cancelado' ? 'badge-danger' : '' %>
+              ">
+
+                <%= m.status %>
+
+              </span>
+
+            </td>
+
+            <!-- DATA -->
+            <td>
+
+              <%= m.dataSolicitacao
+                ? new Date(m.dataSolicitacao).toLocaleDateString('pt-BR')
+                : '-' %>
+
+            </td>
+
+            <!-- AÇÕES -->
+            <td class="text-nowrap">
+
+              <!-- EDITAR -->
+              <a
+                href="/manutencoes/editar/<%= m.id %>"
+                class="btn btn-sm btn-primary"
+                title="Editar"
+              >
+
+                <i class="fas fa-pen"></i>
+
+              </a>
+
+              <!-- HISTÓRICO -->
+               <a
+                 href="/manutencoes/historico/<%= m.id %>"
+                 class="btn btn-sm btn-info"
+                 title="Histórico"
+                >
+
+              <i class="fas fa-history"></i>
+
+               </a>
+
+              <!-- EXCLUIR -->
+              <a
+                href="#"
+                class="btn btn-sm btn-danger remover"
+                data-id="<%= m.id %>"
+                data-name="<%= m.descricao %>"
+                title="Excluir"
+              >
+
+                <i class="fas fa-trash"></i>
+
+              </a>
+
+              <!-- IMPRIMIR -->
+              <button
+                class="btn btn-sm btn-secondary imprimir"
+                data-id="<%= m.id %>"
+                title="Imprimir"
+              >
+
+                <i class="fas fa-print"></i>
+
+              </button>
+
+            </td>
+
+          </tr>
+
+        <% }) %>
+
+        <% } %>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- SCRIPT PESQUISA -->
+<script>
+
+document.addEventListener('DOMContentLoaded', function () {
+
+  const campoPesquisa =
+    document.getElementById('pesquisaTabela');
+
+  // =========================
+  // REMOVER ACENTOS
+  // =========================
+
+  function normalizarTexto(texto) {
+
+    return texto
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '');
+
+  }
+
+  // =========================
+  // PESQUISA
+  // =========================
+
+  campoPesquisa.addEventListener('keyup', function () {
+
+    const valorPesquisa =
+      normalizarTexto(
+        campoPesquisa.value.trim()
+      );
+
+    const linhas =
+      document.querySelectorAll('table tbody tr');
+
+    linhas.forEach(function (linha) {
+
+      const colunas =
+        linha.querySelectorAll('td');
+
+      // ignora linha vazia
+      if (colunas.length < 9) return;
+
+      let textoBusca = '';
+
+      // pega todas as colunas relevantes
+      for (let i = 0; i <= 7; i++) {
+
+        textoBusca +=
+          ' ' + colunas[i].textContent;
+
+      }
+
+      textoBusca =
+        normalizarTexto(textoBusca);
+
+      if (
+        textoBusca.includes(valorPesquisa)
+      ) {
+
+        linha.style.display = '';
+
+      } else {
+
+        linha.style.display = 'none';
+
+      }
+
+    });
+
+  });
+
+});
+</script>
+
+<!-- SWEET ALERT -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+
+document.addEventListener(
+  'DOMContentLoaded',
+  function () {
+
+    const params =
+      new URLSearchParams(
+        window.location.search
+      );
+
+    const descricao =
+      params.get('sucesso');
+
+    if (descricao) {
+
+      Swal.fire({
+
+        icon: 'success',
+
+        title: 'Sucesso!',
+
+        text:
+          descricao +
+          ' atualizado com sucesso.',
+
+        confirmButtonColor: '#4e73df',
+
+        confirmButtonText: 'OK'
+
+      });
+
+      // remove a query string da URL
+      window.history.replaceState(
+        {},
+        document.title,
+        window.location.pathname
+      );
+
+    }
+
+  }
+);
+
+</script>

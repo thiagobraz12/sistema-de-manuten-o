@@ -1,0 +1,866 @@
+<style>
+
+.border-left-purple {
+  border-left: 0.25rem solid #8e44ad !important;
+}
+
+.text-purple {
+  color: #56017a !important;
+}
+
+</style>
+
+<!-- TÍTULO -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+
+  <div>
+
+    <h1 class="h3 text-gray-800 mb-1">
+      <i class="fas fa-chart-line text-primary"></i>
+      Dashboard
+    </h1>
+
+    <small class="text-muted">
+      Visão geral das solicitações e indicadores do sistema
+    </small>
+
+  </div>
+
+</div>
+
+<% if (preventivasVencidas > 0) { %>
+
+<div class="alert alert-danger shadow-sm">
+
+  <i class="fas fa-exclamation-triangle"></i>
+
+  <strong>Atenção!</strong>
+
+  Existem
+
+  <strong>
+    <%= preventivasVencidas %>
+  </strong>
+
+  manutenção(ões) preventiva(s) vencida(s).
+
+</div>
+
+<% } %>
+
+<!-- CARDS -->
+<div class="row">
+
+  <!-- TOTAL -->
+  <div class="col-xl-3 col-md-6 mb-4">
+
+    <div class="card border-left-primary shadow h-100 py-2">
+
+      <div class="card-body">
+
+        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+          Total de Solicitações
+        </div>
+
+        <div class="h5 mb-0 font-weight-bold text-gray-800">
+          <%= total || 0 %>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- ABERTAS -->
+  <div class="col-xl-3 col-md-6 mb-4">
+
+    <div class="card border-left-warning shadow h-100 py-2">
+
+      <div class="card-body">
+
+        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+          Abertas
+        </div>
+
+        <div class="h5 mb-0 font-weight-bold text-gray-800">
+          <%= abertas || 0 %>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- EM ANDAMENTO -->
+  <div class="col-xl-3 col-md-6 mb-4">
+
+    <div class="card border-left-info shadow h-100 py-2">
+
+      <div class="card-body">
+
+        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+          Em Andamento
+        </div>
+
+        <div class="h5 mb-0 font-weight-bold text-gray-800">
+          <%= andamento || 0 %>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- CONCLUÍDAS -->
+  <div class="col-xl-3 col-md-6 mb-4">
+
+    <div class="card border-left-success shadow h-100 py-2">
+
+      <div class="card-body">
+
+        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+          Concluídas
+        </div>
+
+        <div class="h5 mb-0 font-weight-bold text-gray-800">
+          <%= concluidas || 0 %>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- EM ANÁLISE -->
+  <div class="col-xl-3 col-md-6 mb-4">
+
+    <div class="card border-left-dark shadow h-100 py-2">
+
+      <div class="card-body">
+
+        <div class="text-xs font-weight-bold text-dark text-uppercase mb-1">
+          Em Análise
+        </div>
+
+        <div class="h5 mb-0 font-weight-bold text-gray-800">
+          <%= emAnalise || 0 %>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- CANCELADAS -->
+  <div class="col-xl-3 col-md-6 mb-4">
+
+    <div class="card border-left-danger shadow h-100 py-2">
+
+      <div class="card-body">
+
+        <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+          Canceladas
+        </div>
+
+        <div class="h5 mb-0 font-weight-bold text-gray-800">
+          <%= canceladas || 0 %>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- TOTAL GASTO -->
+  <div class="col-xl-3 col-md-6 mb-4">
+
+    <div class="card border-left-purple shadow h-100 py-2">
+
+      <div class="card-body">
+
+        <div class="text-xs font-weight-bold text-purple text-uppercase mb-1">
+          Total Gasto
+        </div>
+
+        <div class="h5 mb-0 font-weight-bold text-gray-800">
+
+          R$
+          <%= Number(totalGasto || 0).toLocaleString('pt-BR', {
+            minimumFractionDigits: 2
+          }) %>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- PREVENTIVAS VENCIDAS -->
+
+  <div class="col-xl-3 col-md-6 mb-4">
+
+    <div class="card border-left-danger shadow h-100 py-2">
+
+       <div class="card-body">
+
+      <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+        Preventivas Vencidas
+      </div>
+
+      <div class="h5 mb-0 font-weight-bold text-gray-800">
+        <%= preventivasVencidas || 0 %>
+      </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- MÉDIA -->
+  <div class="col-xl-3 col-md-6 mb-4">
+
+    <div class="card border-left-secondary shadow h-100 py-2">
+
+      <div class="card-body">
+
+        <div class="text-xs font-weight-bold text-secondary text-uppercase mb-1">
+          Média por Solicitação
+        </div>
+
+        <div class="h5 mb-0 font-weight-bold text-gray-800">
+
+          R$
+          <%= total > 0
+            ? (totalGasto / total).toLocaleString('pt-BR', {
+                minimumFractionDigits: 2
+              })
+            : '0,00'
+          %>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- TEMPO MÉDIO -->
+ <div class="col-xl-3 col-md-6 mb-4">
+
+  <div class="card border-left-info shadow h-100 py-2">
+
+    <div class="card-body">
+
+      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+        Tempo Médio de Atendimento
+      </div>
+
+      <div class="h5 mb-0 font-weight-bold text-gray-800">
+        <%= tempoMedioAtendimento || 0 %> dia(s)
+      </div>
+
+    </div>
+
+  </div>
+
+ </div>
+
+</div>
+
+<!-- GRÁFICOS -->
+<div class="row">
+
+  <!-- STATUS -->
+  <div class="col-xl-6 mb-4">
+
+    <div class="card shadow h-100">
+
+      <div class="card-header py-3">
+
+        <h6 class="m-0 font-weight-bold text-primary">
+          Situação das Solicitações
+        </h6>
+
+      </div>
+
+      <div class="card-body">
+
+        <div style="height:320px;">
+          <canvas id="statusChart"></canvas>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- PRIORIDADE -->
+  <div class="col-xl-6 mb-4">
+
+    <div class="card shadow h-100">
+
+      <div class="card-header py-3">
+
+        <h6 class="m-0 font-weight-bold text-primary">
+          Solicitações por Prioridade
+        </h6>
+
+      </div>
+
+      <div class="card-body">
+
+        <div style="height:320px;">
+          <canvas id="prioridadeChart"></canvas>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- NOVA LINHA -->
+<div class="row">
+
+  <!-- TIPOS -->
+  <div class="col-xl-6 mb-4">
+
+    <div class="card shadow h-100">
+
+      <div class="card-header py-3">
+
+        <h6 class="m-0 font-weight-bold text-primary">
+          Manutenções por Tipo
+        </h6>
+
+      </div>
+
+      <div class="card-body">
+
+        <div style="height:320px;">
+          <canvas id="tipoChart"></canvas>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- GASTOS -->
+  <div class="col-xl-6 mb-4">
+
+    <div class="card shadow h-100">
+
+      <div class="card-header py-3">
+
+        <h6 class="m-0 font-weight-bold text-primary">
+          Gastos Mensais
+        </h6>
+
+      </div>
+
+      <div class="card-body">
+
+        <div style="height:320px;">
+          <canvas id="gastosChart"></canvas>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<div class="row">
+
+  <div class="col-xl-12 mb-4">
+
+    <div class="card shadow">
+
+      <div class="card-header py-3">
+
+        <h6 class="m-0 font-weight-bold text-primary">
+
+          <i class="fas fa-calendar-alt"></i>
+
+          Próximas Manutenções Preventivas
+
+        </h6>
+
+      </div>
+
+      <div class="card-body">
+
+        <% if(
+          proximasPreventivas &&
+          proximasPreventivas.length > 0
+        ){ %>
+
+          <div class="table-responsive">
+
+            <table class="table table-bordered">
+
+              <thead>
+
+                <tr>
+
+                  <th>Tipo</th>
+
+                  <th>Local</th>
+
+                  <th>Periodicidade</th>
+
+                  <th>Próxima Execução</th>
+
+                </tr>
+
+              </thead>
+
+              <tbody>
+
+                <% proximasPreventivas.forEach(m => { %>
+
+                  <tr>
+
+                    <td>
+                      <%= m.tipo %>
+                    </td>
+
+                    <td>
+                      <%= m.local %>
+                    </td>
+
+                    <td>
+                      <%= m.periodicidade %>
+                    </td>
+
+                    <td>
+
+                       <%
+                         const vencida =
+                           new Date(m.proximaExecucao) < new Date();
+                        %>
+
+                     <span
+                       class="badge <%= vencida ? 'badge-danger' : 'badge-info' %>"
+                      >
+
+                       <%= new Date(
+                         m.proximaExecucao
+                        ).toLocaleDateString(
+                         'pt-BR'
+                        ) %>
+
+                      </span>
+
+                    </td>
+
+                  </tr>
+
+                <% }) %>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        <% } else { %>
+
+          <p class="text-muted mb-0">
+
+            Nenhuma manutenção preventiva programada.
+
+          </p>
+
+        <% } %>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- DADOS -->
+<script id="dashboardData" type="application/json">
+
+<%- JSON.stringify({
+
+  abertas: typeof abertas !== 'undefined'
+    ? abertas
+    : 0,
+
+  andamento: typeof andamento !== 'undefined'
+    ? andamento
+    : 0,
+
+  concluidas: typeof concluidas !== 'undefined'
+    ? concluidas
+    : 0,
+
+  emAnalise: typeof emAnalise !== 'undefined'
+    ? emAnalise
+    : 0,
+
+  canceladas: typeof canceladas !== 'undefined'
+    ? canceladas
+    : 0,
+
+  porPrioridade:
+    typeof porPrioridade !== 'undefined'
+      ? porPrioridade
+      : {},
+
+  manutencoesPorTipo:
+    typeof manutencoesPorTipo !== 'undefined'
+      ? manutencoesPorTipo
+      : {},
+
+  gastosMensais:
+    typeof gastosMensais !== 'undefined'
+      ? gastosMensais
+      : {}
+
+}) %>
+
+</script>
+
+<script>
+
+const dashboardData = JSON.parse(
+  document.getElementById('dashboardData').textContent
+);
+
+window.onload = function ()  {
+
+  /* ========================================
+     GRÁFICO STATUS
+  ======================================== */
+
+  const statusCanvas =
+    document.getElementById('statusChart');
+
+  if (statusCanvas) {
+
+    new Chart(statusCanvas, {
+
+      type: 'doughnut',
+
+      data: {
+
+        labels: [
+          'Abertas',
+          'Em Andamento',
+          'Concluídas',
+          'Em Análise',
+          'Canceladas'
+        ],
+
+        datasets: [{
+
+          data: [
+            dashboardData.abertas || 0,
+            dashboardData.andamento || 0,
+            dashboardData.concluidas || 0,
+            dashboardData.emAnalise || 0,
+            dashboardData.canceladas || 0
+          ],
+
+          backgroundColor: [
+            '#4e73df', // Elétrica
+            '#1cc88a', // Hidráulica
+            '#36b9cc', // Geral
+            '#f6c23e', // Civil
+            '#e74a3b', // Climatização
+            '#8e44ad'  // Segurança
+          ],
+
+          borderWidth: 2
+
+        }]
+
+      },
+
+      options: {
+
+        responsive: true,
+
+        maintainAspectRatio: false,
+
+        plugins: {
+
+          legend: {
+
+            position: 'bottom'
+
+          }
+
+        }
+
+      }
+
+    });
+
+  }
+
+  /* ========================================
+     GRÁFICO PRIORIDADE
+  ======================================== */
+
+  const prioridadeCanvas =
+    document.getElementById('prioridadeChart');
+
+  if (prioridadeCanvas) {
+
+    new Chart(prioridadeCanvas, {
+
+      type: 'bar',
+
+      data: {
+
+        labels: [
+          'Baixa',
+          'Média',
+          'Alta'
+        ],
+
+        datasets: [{
+
+          data: [
+
+            dashboardData.porPrioridade?.baixa || 0,
+
+            dashboardData.porPrioridade?.media || 0,
+
+            dashboardData.porPrioridade?.alta || 0
+
+          ],
+
+          backgroundColor: [
+            '#36b9cc',
+            '#f6c23e',
+            '#e74a3b'
+          ],
+
+          borderRadius: 6
+
+        }]
+
+      },
+
+      options: {
+
+        responsive: true,
+
+        maintainAspectRatio: false,
+
+        scales: {
+
+          y: {
+
+            beginAtZero: true
+
+          }
+
+        },
+
+        plugins: {
+
+          legend: {
+
+            display: false
+
+          }
+
+        }
+
+      }
+
+    });
+
+  }
+
+  /* ========================================
+     GRÁFICO MANUTENÇÕES POR TIPO
+  ======================================== */
+
+  const tipoCanvas =
+    document.getElementById('tipoChart');
+
+  if (tipoCanvas) {
+
+    const tiposData =
+  dashboardData.manutencoesPorTipo || {};
+
+const tiposLabels = [];
+const tiposValores = [];
+
+
+for (const chave in tiposData) {
+
+  tiposLabels.push(chave);
+
+  tiposValores.push(
+    Number(tiposData[chave])
+  );
+
+}
+
+    new Chart(tipoCanvas, {
+
+      type: 'doughnut',
+
+      data: {
+
+        labels: tiposLabels.length
+          ? tiposLabels
+          : ['Sem dados'],
+
+        datasets: [{
+
+          data: tiposValores.length
+            ? tiposValores
+            : [1],
+
+          backgroundColor: [
+            '#4e73df',
+            '#1cc88a',
+            '#36b9cc',
+            '#f6c23e',
+            '#e74a3b',
+            '#858796'
+          ],
+
+          borderWidth: 2
+
+        }]
+
+      },
+
+      options: {
+
+        responsive: true,
+
+        maintainAspectRatio: false,
+
+        plugins: {
+
+          legend: {
+
+            position: 'bottom'
+
+          }
+
+        }
+
+      }
+
+    });
+
+  }
+
+  /* ========================================
+     GRÁFICO GASTOS MENSAIS
+  ======================================== */
+
+  const gastosCanvas =
+    document.getElementById('gastosChart');
+
+   if (gastosCanvas) {
+
+    const gastosData =
+   dashboardData.gastosMensais || {};
+
+   const gastosLabels = [];
+   const gastosValores = [];
+
+   for (const chave in gastosData) {
+
+   gastosLabels.push(chave);
+
+   gastosValores.push(
+    Number(gastosData[chave])
+  );
+
+}
+
+    new Chart(gastosCanvas, {
+
+      type: 'bar',
+
+      data: {
+
+        labels: gastosLabels.length
+          ? gastosLabels
+          : ['Sem dados'],
+
+        datasets: [{
+
+          label: 'Gastos Mensais',
+
+          data: gastosValores.length
+            ? gastosValores
+            : [0],
+
+          backgroundColor: '#4e73df',
+
+          borderRadius: 6
+
+        }]
+
+      },
+
+      options: {
+
+        responsive: true,
+
+        maintainAspectRatio: false,
+
+        scales: {
+
+          y: {
+
+            beginAtZero: true
+
+          }
+
+        },
+
+        plugins: {
+
+          legend: {
+
+            display: false
+
+          }
+
+        }
+
+      }
+
+    });
+
+  }
+  
+};
+
+</script>
+

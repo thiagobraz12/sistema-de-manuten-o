@@ -1,0 +1,176 @@
+<div class="container-fluid">
+
+  <div class="row justify-content-center">
+
+
+<div class="col-lg-8">
+
+  <div class="card shadow mb-4">
+
+    <div class="card-header bg-primary text-white">
+
+      <h6 class="m-0 font-weight-bold">
+        Novo Equipamento
+      </h6>
+
+    </div>
+
+    <div class="card-body">
+
+      <form
+        action="/equipamentos/criar"
+        method="POST"
+      >
+
+        <div class="form-group">
+
+          <label>Nome</label>
+
+          <input
+            type="text"
+            name="nome"
+            class="form-control"
+            value="<%= dados?.nome || '' %>"
+          >
+
+           <% if (erros?.nome) { %>
+            <small class="text-danger">
+           <%= erros.nome %>
+           </small>
+           <% } %>
+
+        </div>
+
+        <div class="form-group">
+
+          <label>Patrimônio</label>
+
+          <input
+            type="text"
+            name="patrimonio"
+            class="form-control"
+            value="<%= dados?.patrimonio || '' %>"
+          >
+          
+           <% if (erros?.patrimonio) { %>
+            <small class="text-danger">
+           <%= erros.patrimonio %>
+           </small>
+           <% } %>
+
+        </div>
+        
+        <div class="form-group">
+
+          <label>Marca</label>
+
+          <input
+            type="text"
+            name="marca"
+            class="form-control"
+            value="<%= dados?.marca || '' %>"
+          >
+          
+           <% if (erros?.marca) { %>
+            <small class="text-danger">
+           <%= erros.marca %>
+           </small>
+           <% } %>
+
+        </div>
+
+        <div class="form-group">
+
+          <label>Modelo</label>
+
+          <input
+            type="text"
+            name="modelo"
+            class="form-control"
+            value="<%= dados?.modelo || '' %>"
+          >
+
+           <% if (erros?.modelo) { %>
+            <small class="text-danger">
+           <%= erros.modelo %>
+           </small>
+           <% } %>
+          
+        </div>
+
+        <div class="form-group">
+
+          <label>Localização</label>
+
+          <input
+            type="text"
+            name="localizacao"
+            class="form-control"
+            value="<%= dados?.localizacao || '' %>"
+          >
+          
+           <% if (erros?.localizacao) { %>
+            <small class="text-danger">
+           <%= erros.localizacao %>
+           </small>
+           <% } %>
+
+        </div>
+                              
+        <div class="form-group">
+                           
+          <label>Status</label>
+
+          <select
+            name="status"
+            class="form-control"
+          >
+
+            <option value="Ativo">
+              Ativo
+            </option>
+
+            <option value="Inativo">
+              Inativo
+            </option>
+
+          </select>
+
+          <% if (erros?.status) { %>
+            <small class="text-danger">
+           <%= erros.status %>
+           </small>
+           <% } %>
+
+        </div>
+
+        <div class="d-flex justify-content-end mt-5 pb-3 pr-4">
+
+          <a
+            href="/equipamentos"
+            class="btn btn-secondary mr-2"
+          >
+            Cancelar
+          </a>
+
+          <button
+            type="submit"
+            class="btn btn-primary"
+          >
+            Salvar
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+  </div>
+
+</div>

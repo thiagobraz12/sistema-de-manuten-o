@@ -1,0 +1,169 @@
+<div class="container-fluid">
+
+  <div class="row justify-content-center">
+
+    <div class="col-lg-8">
+
+      <div class="card shadow mb-4">
+
+        <div class="card-header bg-primary text-white">
+
+          <h6 class="m-0 font-weight-bold">
+            Editar Fornecedor
+          </h6>
+
+        </div>
+
+        <div class="card-body">
+
+          <form
+            action="/fornecedores/atualizar/<%= fornecedor.id %>"
+            method="POST"
+          >
+
+            <!-- EMPRESA -->
+
+            <div class="form-group">
+
+              <label>Empresa</label>
+
+              <input
+                type="text"
+                name="empresa"
+                class="form-control <%= erros?.empresa ? 'is-invalid' : '' %>"
+                value="<%= fornecedor?.empresa || '' %>"
+              >
+
+              <% if (erros?.empresa) { %>
+
+                <div class="invalid-feedback">
+                  <%= erros.empresa %>
+                </div>
+
+              <% } %>
+
+            </div>
+
+            <!-- TELEFONE -->
+
+            <div class="form-group">
+
+              <label>Telefone</label>
+
+              <input
+                type="text"
+                name="telefone"
+                class="form-control <%= erros?.telefone ? 'is-invalid' : '' %>"
+                value="<%= fornecedor?.telefone || '' %>"
+              >
+
+              <% if (erros?.telefone) { %>
+
+                <div class="invalid-feedback">
+                  <%= erros.telefone %>
+                </div>
+
+              <% } %>
+
+            </div>
+
+            <!-- STATUS -->
+
+            <div class="form-group">
+
+              <label>Status</label>
+
+              <select
+                name="status"
+                class="form-control <%= erros?.status ? 'is-invalid' : '' %>"
+              >
+
+                <option
+                  value="ativo"
+                  <%= fornecedor?.status === 'ativo' ? 'selected' : '' %>
+                >
+                  Ativo
+                </option>
+
+                <option
+                  value="inativo"
+                  <%= fornecedor?.status === 'inativo' ? 'selected' : '' %>
+                >
+                  Inativo
+                </option>
+
+              </select>
+
+              <% if (erros?.status) { %>
+
+                <div class="invalid-feedback d-block">
+                  <%= erros.status %>
+                </div>
+
+              <% } %>
+
+            </div>
+
+            <div class="d-flex justify-content-end mt-5 pb-3 pr-4">
+
+              <a
+                href="/fornecedores"
+                class="btn btn-secondary mr-2"
+              >
+                Cancelar
+              </a>
+
+              <button
+  type="submit"
+  class="btn btn-primary"
+  id="btnAtualizar"
+>
+  Atualizar
+</button>
+
+            </div>
+
+          </form>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+
+  const formAtualizar =
+    document.querySelector('form');
+
+  formAtualizar.addEventListener('submit', function(e) {
+
+    e.preventDefault();
+
+    Swal.fire({
+
+      title: 'Fornecedor atualizado!',
+
+      text: 'Os dados foram alterados com sucesso.',
+
+      icon: 'success',
+
+      confirmButtonColor: '#3085d6',
+
+      confirmButtonText: 'OK',
+
+    }).then(() => {
+
+      formAtualizar.submit();
+
+    });
+
+  });
+
+</script>
+
+</div>

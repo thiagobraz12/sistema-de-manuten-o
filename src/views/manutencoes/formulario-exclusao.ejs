@@ -1,0 +1,65 @@
+<div class="row justify-content-center">
+
+  <div class="col-lg-8 col-md-10">
+
+    <div class="card shadow mb-4 border-left-danger">
+
+      <div class="card-header bg-danger text-white py-3">
+
+        <h6 class="m-0 font-weight-bold">
+          Confirmar Exclusão
+        </h6>
+
+      </div>
+
+
+      <div class="card-body">
+
+        <div class="alert alert-danger">
+          <strong>Atenção!</strong> Esta ação não poderá ser desfeita.
+        </div>
+
+
+        <div class="mb-4">
+
+          <p>
+            <strong>Tipo:</strong>
+            <%= manutencao.tipo %>
+          </p>
+
+          <p>
+            <strong>Descrição:</strong>
+            <%= manutencao.descricao %>
+          </p>
+
+          <p>
+            <strong>Status:</strong>
+            <%= manutencao.status %>
+          </p>
+
+        </div>
+
+
+        <form action="/manutencoes/excluir/<%= manutencao.id %>" method="POST">
+
+          <div class="d-flex justify-content-end">
+
+            <a href="/manutencoes" class="btn btn-secondary mr-2">
+              Cancelar
+            </a>
+
+            <button type="submit" class="btn btn-danger">
+              Excluir
+            </button>
+
+          </div>
+
+        </form>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

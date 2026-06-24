@@ -1,0 +1,66 @@
+
+<div class="container-fluid">
+
+  <div class="row justify-content-center">
+
+    <div class="col-lg-6">
+
+      <div class="card shadow mb-4 border-left-danger">
+
+        <div class="card-header bg-danger text-white">
+
+          <h6 class="m-0 font-weight-bold">
+            Excluir Fornecedor
+          </h6>
+
+        </div>
+
+        <div class="card-body">
+
+          <p class="mb-4">
+
+            Deseja realmente excluir o fornecedor:
+
+            <strong>
+              <%= fornecedor.empresa %>
+            </strong>
+
+            ?
+
+          </p>
+
+          <form
+            action="/fornecedores/excluir/<%= fornecedor.id %>"
+            method="POST"
+          >
+
+            <div class="d-flex justify-content-end">
+
+              <a
+                href="/fornecedores"
+                class="btn btn-secondary mr-2"
+              >
+                Cancelar
+              </a>
+
+              <button
+                type="submit"
+                class="btn btn-danger"
+              >
+                <i class="fas fa-trash"></i>
+                Excluir
+              </button>
+
+            </div>
+
+          </form>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

@@ -1,0 +1,532 @@
+<div class="container-fluid">
+
+  <div class="row justify-content-center">
+    <div class="col-lg-12">
+
+      <div class="card shadow mb-4">
+
+        <div class="card-header bg-warning text-white">
+          <h6 class="m-0 font-weight-bold">
+            <i class="fas fa-tools mr-2"></i>
+            Editar Solicitação de Manutenção
+          </h6>
+        </div>
+
+        <div class="card-body">
+
+          <form
+            method="POST"
+            action="/manutencoes/atualizar/<%= manutencao.id %>"
+            class="form-editar"
+            enctype="multipart/form-data"
+          >
+
+            <div class="row">
+
+              <!-- TIPO -->
+              <div class="col-md-6">
+
+                <div class="form-group">
+
+                  <label>Tipo de manutenção</label>
+
+                  <select
+                    name="tipo"
+                    class="form-control <%= erros?.tipo ? 'is-invalid' : '' %>"
+                  >
+
+                    <option value="">Selecione</option>
+
+                    <option
+                      value="elétrica"
+                      <%= manutencao.tipo === 'elétrica' ? 'selected' : '' %>
+                    >
+                      Elétrica
+                    </option>
+
+                    <option
+                      value="hidráulica"
+                      <%= manutencao.tipo === 'hidráulica' ? 'selected' : '' %>
+                    >
+                      Hidráulica
+                    </option>
+
+                    <option
+                      value="geral"
+                      <%= manutencao.tipo === 'geral' ? 'selected' : '' %>
+                    >
+                      Geral
+                    </option>
+
+                    <option
+                      value="civil"
+                      <%= manutencao.tipo === 'civil' ? 'selected' : '' %>
+                    >
+                      Civil
+                    </option>
+
+                    <option
+                      value="climatização"
+                      <%= manutencao.tipo === 'climatização' ? 'selected' : '' %>
+                    >
+                      Climatização
+                    </option>
+
+                    <option
+                      value="segurança"
+                      <%= manutencao.tipo === 'segurança' ? 'selected' : '' %>
+                    >
+                      Segurança
+                    </option>
+
+                  </select>
+
+                  <% if(erros?.tipo){ %>
+                    <div class="invalid-feedback d-block">
+                      <%= erros.tipo %>
+                    </div>
+                  <% } %>
+
+                </div>
+
+              </div>
+
+              <!-- LOCAL -->
+              <div class="col-md-6">
+
+                <div class="form-group">
+
+                  <label>Local</label>
+
+                  <input
+                    type="text"
+                    name="local"
+                    class="form-control <%= erros?.local ? 'is-invalid' : '' %>"
+                    value="<%= manutencao.local %>"
+                    placeholder="Ex: Bloco A - Sala 02"
+                  />
+
+                  <% if(erros?.local){ %>
+                    <div class="invalid-feedback d-block">
+                      <%= erros.local %>
+                    </div>
+                  <% } %>
+
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="row">
+
+              <!-- DESCRIÇÃO -->
+              <div class="col-6">
+
+                <div class="form-group">
+
+                  <label>Descrição</label>
+
+                  <input
+                    type="text"
+                    name="descricao"
+                    class="form-control <%= erros?.descricao ? 'is-invalid' : '' %>"
+                    value="<%= manutencao.descricao %>"
+                  />
+
+                  <% if(erros?.descricao){ %>
+                    <div class="invalid-feedback d-block">
+                      <%= erros.descricao %>
+                    </div>
+                  <% } %>
+
+                </div>
+
+              </div>
+
+              <!-- VALOR -->
+              <div class="col-md-6">
+
+                <div class="form-group">
+
+                  <label>Valor da manutenção</label>
+
+                  <input
+                    type="number"
+                    step="0.01"
+                    name="valor"
+                    class="form-control <%= erros?.valor ? 'is-invalid' : '' %>"
+                    value="<%= manutencao.valor %>"
+                    placeholder="0.00"
+                  />
+
+                  <% if(erros?.valor){ %>
+                    <div class="invalid-feedback d-block">
+                      <%= erros.valor %>
+                    </div>
+                  <% } %>
+
+                </div>
+
+              </div>
+
+            </div>
+                        <div class="row">
+
+              <!-- RESPONSÁVEL -->
+              <div class="col-md-6">
+
+                <div class="form-group">
+
+                  <label>Responsável</label>
+
+                  <input
+                    type="text"
+                    name="responsavel"
+                    class="form-control <%= erros?.responsavel ? 'is-invalid' : '' %>"
+                    value="<%= manutencao.responsavel %>"
+                    placeholder="Ex: João Silva"
+                  />
+
+                  <% if(erros?.responsavel){ %>
+                    <div class="invalid-feedback d-block">
+                      <%= erros.responsavel %>
+                    </div>
+                  <% } %>
+
+                </div>
+
+              </div>
+
+              <!-- FORNECEDOR -->
+              <div class="col-md-6">
+
+                <div class="form-group">
+
+                  <label>Fornecedor</label>
+
+                  <select
+                    name="fornecedorId"
+                    class="form-control <%= erros?.fornecedorId ? 'is-invalid' : '' %>"
+                  >
+
+                    <option value="">
+                      Selecione um fornecedor
+                    </option>
+
+                    <% fornecedores.forEach(f => { %>
+
+                      <option
+                        value="<%= f.id %>"
+                        <%= manutencao.fornecedor?.id == f.id ? 'selected' : '' %>
+                      >
+                        <%= f.empresa %>
+                      </option>
+
+                    <% }) %>
+
+                  </select>
+
+                  <% if(erros?.fornecedorId){ %>
+                    <div class="invalid-feedback d-block">
+                      <%= erros.fornecedorId %>
+                    </div>
+                  <% } %>
+
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="row">
+
+              <!-- PRIORIDADE -->
+              <div class="col-md-6">
+
+                <div class="form-group">
+
+                  <label>Prioridade</label>
+
+                  <select
+                    name="prioridadeId"
+                    class="form-control <%= erros?.prioridadeId ? 'is-invalid' : '' %>"
+                  >
+
+                    <option value="">Selecione</option>
+
+                    <% prioridades.forEach(p => { %>
+
+                      <option
+                        value="<%= p.id %>"
+                        <%= manutencao.prioridade?.id == p.id ? 'selected' : '' %>
+                      >
+                        <%= p.nome %>
+                      </option>
+
+                    <% }) %>
+
+                  </select>
+
+                  <% if(erros?.prioridadeId){ %>
+                    <div class="invalid-feedback d-block">
+                      <%= erros.prioridadeId %>
+                    </div>
+                  <% } %>
+
+                </div>
+
+              </div>
+
+              <!-- STATUS -->
+              <div class="col-md-6">
+
+                <div class="form-group">
+
+                  <label>Status</label>
+
+                  <select
+                    name="status"
+                    class="form-control <%= erros?.status ? 'is-invalid' : '' %>"
+                  >
+
+                    <option value="">Selecione</option>
+
+                    <option
+                      value="em andamento"
+                      <%= manutencao.status === 'em andamento' ? 'selected' : '' %>>
+                      Em andamento
+                    </option>
+
+                    <option
+                      value="em analise"
+                      <%= manutencao.status === 'em analise' ? 'selected' : '' %>>
+                      Em Análise
+                    </option>
+
+                    <option
+                      value="concluído"
+                      <%= manutencao.status === 'concluído' ? 'selected' : '' %>>
+                      Concluído
+                    </option>
+
+                    <option
+                      value="cancelado"
+                      <%= manutencao.status === 'cancelado' ? 'selected' : '' %>>
+                      Cancelado
+                    </option>
+
+                    <option
+                      value="aberto"
+                      <%= manutencao.status === 'aberto' ? 'selected' : '' %>>
+                      Aberto
+                    </option>
+
+                  </select>
+
+                  <% if(erros?.status){ %>
+                    <div class="invalid-feedback d-block">
+                      <%= erros.status %>
+                    </div>
+                  <% } %>
+
+                </div>
+
+              </div>
+
+            </div>
+                        <div class="row">
+
+              <!-- EQUIPAMENTO -->
+              <div class="col-md-6">
+
+                <div class="form-group">
+
+                  <label>Equipamento</label>
+
+                  <select
+                    name="equipamentoId"
+                    class="form-control"
+                  >
+
+                    <option value="">
+                      Selecione um equipamento
+                    </option>
+
+                    <% equipamentos.forEach((equipamento) => { %>
+
+                      <option
+                        value="<%= equipamento.id %>"
+                        <%= manutencao.equipamento?.id == equipamento.id
+                          ? 'selected'
+                          : '' %>
+                      >
+                        <%= equipamento.nome %>
+                      </option>
+
+                    <% }) %>
+
+                  </select>
+
+                </div>
+
+              </div>
+
+              <div class="form-group">
+
+               <label>Foto</label>
+
+              <input
+               type="file"
+               name="foto"
+                class="form-control"
+               accept="image/*"
+               >
+
+              </div>
+
+            </div>
+
+            <div class="card shadow mb-4 border-left-success">
+
+    <div class="card-header py-3 bg-success text-white">
+        <h6 class="m-0 font-weight-bold text-white">
+            Manutenção Preventiva
+        </h6>
+
+    </div>
+
+    <div class="card-body">
+
+        <div class="form-group">
+
+            <div class="custom-control custom-checkbox">
+
+                <input
+                    type="checkbox"
+                    class="custom-control-input"
+                    id="preventiva"
+                    name="preventiva"
+                    value="true"
+                    <%= manutencao.preventiva ? 'checked' : '' %>
+                >
+
+                <label
+                    class="custom-control-label"
+                    for="preventiva"
+                >
+                    Esta manutenção é preventiva
+                </label>
+
+            </div>
+
+        </div>
+
+        <div class="row">
+
+              <!-- PERIODICIDADE -->
+              <div class="col-md-6">
+
+                <div class="form-group">
+
+                  <label>Periodicidade</label>
+
+                  <select
+                    name="periodicidade"
+                    class="form-control <%= erros?.periodicidade ? 'is-invalid' : '' %>"
+                  >
+
+                    <option value="">Selecione</option>
+
+                    <option
+                      value="mensal"
+                      <%= manutencao.periodicidade === 'mensal' ? 'selected' : '' %>>
+                      Mensal
+                    </option>
+
+                    <option
+                      value="trimestral"
+                      <%= manutencao.periodicidade === 'trimestral' ? 'selected' : '' %>>
+                      Trimestral
+                    </option>
+
+                    <option
+                      value="semestral"
+                      <%= manutencao.periodicidade === 'semestral' ? 'selected' : '' %>>
+                      Semestral
+                    </option>
+
+                    <option
+                      value="anual"
+                      <%= manutencao.periodicidade === 'anual' ? 'selected' : '' %>>
+                      Anual
+                    </option>
+
+                  </select>
+
+                  <% if(erros?.periodicidade){ %>
+                    <div class="invalid-feedback d-block">
+                      <%= erros.periodicidade %>
+                    </div>
+                  <% } %>
+
+                </div>
+
+              </div>
+
+              <!-- PRÓXIMA EXECUÇÃO -->
+              <div class="col-md-6">
+
+                <div class="form-group">
+
+                  <label>Próxima execução</label>
+
+                  <input
+                    type="date"
+                    name="proximaExecucao"
+                    class="form-control <%= erros?.proximaExecucao ? 'is-invalid' : '' %>"
+                    value="<%= manutencao.proximaExecucao ? new Date(manutencao.proximaExecucao).toISOString().split('T')[0] : '' %>"
+                  >
+
+                  <% if(erros?.proximaExecucao){ %>
+                    <div class="invalid-feedback d-block">
+                      <%= erros.proximaExecucao %>
+                    </div>
+                  <% } %>
+
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="d-flex justify-content-end mt-4">
+
+              <a
+                href="/manutencoes"
+                class="btn btn-secondary mr-2">
+                Cancelar
+              </a>
+
+              <button
+                type="submit"
+                class="btn btn-success">
+                Atualizar
+              </button>
+
+            </div>
+
+          </form>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+

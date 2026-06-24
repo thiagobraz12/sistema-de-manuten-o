@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+
+  <title><%= title || 'Sistema de Manutenção' %></title>
+
+  <!-- SB Admin 2 -->
+  <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+  <link href="/css/sb-admin-2.min.css" rel="stylesheet">
+
+  <!-- CSS custom -->
+  <link rel="stylesheet" href="/styles.css">
+
+  <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+/>
+</head>
+
+
+<body id="page-top">
+
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+
+    <!-- SIDEBAR -->
+    <%- include('../partials/sidebar.ejs') %>
+
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+      <!-- Main Content -->
+      <div id="content">
+
+        <!-- TOPBAR -->
+        <%- include('../partials/topbar.ejs') %>
+
+
+        <!-- Begin Page Content -->
+<div class="container-fluid">
+
+  <%- body %>
+
+</div>
+<!-- End Page Content -->
+        <!-- End Page Content -->
+
+      </div>
+
+
+      <!-- FOOTER -->
+      <%- include('../partials/footer.ejs') %>
+
+    </div>
+    <!-- End Content Wrapper -->
+
+  </div>
+  <!-- End Page Wrapper -->
+
+
+  <!-- JS CORE -->
+  <script src="/vendor/jquery/jquery.min.js"></script>
+  <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- SB ADMIN -->
+  <script src="/js/sb-admin-2.min.js"></script>
+
+  <!-- CHART -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <script src="/js/app.js"></script>
+
+</body>
+</html>

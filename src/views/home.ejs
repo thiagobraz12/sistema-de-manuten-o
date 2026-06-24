@@ -1,0 +1,63 @@
+ <!DOCTYPE html>
+      <html>
+         <head>
+
+             <title>Sistema de Manutenção Predial</title>
+
+                 <style>
+
+                     table{
+                         width:100%;
+                             border-collapse:collapse;
+                        }
+
+                              td,th{
+                                  border:1px solid #ccc;
+                                padding:8px;
+                                }
+
+                </style>
+
+         </head>
+
+<body>
+
+<h1>Solicitações de Manutenção</h1>
+
+<a href="/manutencoes/nova">Nova Solicitação</a>
+
+<table>
+
+<tr>
+<th>Tipo</th>
+<th>Descrição</th>
+<th>Prioridade</th>
+<th>Status</th>
+<th>Ações</th>
+</tr>
+
+<% manutencoes.forEach(m => { %>
+
+<tr>
+
+<td><%= m.tipo %></td>
+<td><%= m.descricao %></td>
+<td><%= m.prioridade.nome %></td>
+<td><%= m.status %></td>
+
+<td>
+
+<a href="/manutencoes/editar/<%= m.id %>">Editar</a>
+
+<a href="/manutencoes/excluir/<%= m.id %>">Excluir</a>
+
+</td>
+
+</tr>
+
+<% }) %>
+
+</table>
+
+</body>
+</html>

@@ -1,0 +1,191 @@
+<div class="container-fluid">
+
+  <div class="row justify-content-center">
+
+    <div class="col-lg-8">
+
+      <div class="card shadow mb-4">
+
+        <div class="card-header bg-primary text-white">
+
+          <h6 class="m-0 font-weight-bold">
+            Editar Equipamento
+          </h6>
+
+        </div>
+
+        <div class="card-body">
+
+          <form
+            class="form-editar-equipamento"
+            action="/equipamentos/atualizar/<%= equipamento.id %>"
+            method="POST"
+          >
+
+            <!-- NOME -->
+
+            <div class="form-group">
+
+              <label>Nome</label>
+
+              <input
+                type="text"
+                name="nome"
+                class="form-control"
+                value="<%= equipamento.nome %>"
+              >
+                <% if (erros?.nome) { %>
+                 <small class="text-danger">
+                <%= erros.nome %>
+                 </small>
+                 <% } %>
+
+            </div>
+
+            <!-- PATRIMÔNIO -->
+
+            <div class="form-group">
+
+              <label>Patrimônio</label>
+
+              <input
+                type="text"
+                name="patrimonio"
+                class="form-control"
+                value="<%= equipamento.patrimonio %>"
+              >
+              
+               <% if (erros?.patrimonio) { %>
+                <small class="text-danger">
+               <%= erros.patrimonio %>
+               </small>
+               <% } %>
+              
+            </div>
+
+            <!-- MARCA -->
+
+            <div class="form-group">
+
+              <label>Marca</label>
+
+              <input
+                type="text"
+                name="marca"
+                class="form-control"
+                value="<%= equipamento.marca || '' %>"
+              >
+                <% if (erros?.marca) { %>
+                 <small class="text-danger">
+                <%= erros.marca %>
+                 </small>
+                 <% } %>
+
+            </div>
+
+            <!-- MODELO -->
+
+            <div class="form-group">
+
+              <label>Modelo</label>
+
+              <input
+                type="text"
+                name="modelo"
+                class="form-control"
+                value="<%= equipamento.modelo || '' %>"
+              >
+
+               <% if (erros?.modelo) { %>
+                <small class="text-danger">
+               <%= erros.modelo %>
+               </small>
+               <% } %>
+
+            </div>
+
+            <!-- LOCALIZAÇÃO -->
+
+            <div class="form-group">
+
+              <label>Localização</label>
+
+              <input
+                type="text"
+                name="localizacao"
+                class="form-control"
+                value="<%= equipamento.localizacao || '' %>"
+              >
+
+               <% if (erros?.localizacao) { %>
+                <small class="text-danger">
+               <%= erros.localizacao %>
+               </small>
+               <% } %>
+
+            </div>
+
+            <!-- STATUS -->
+
+            <div class="form-group">
+
+              <label>Status</label>
+
+              <select
+                name="status"
+                class="form-control"
+              >
+
+                <option
+                  value="Ativo"
+                  <%= equipamento.status === 'Ativo' ? 'selected' : '' %>
+                >
+                  Ativo
+                </option>
+
+                <option
+                  value="Inativo"
+                  <%= equipamento.status === 'Inativo' ? 'selected' : '' %>
+                >
+                  Inativo
+                </option>
+
+              </select>
+
+              <% if (erros?.status) { %>
+                <small class="text-danger">
+                  <%= erros.status %>
+                </small>
+              <% } %>
+
+            </div>
+
+            <div class="d-flex justify-content-end mt-4">
+
+              <a
+                href="/equipamentos"
+                class="btn btn-secondary mr-2"
+              >
+                Cancelar
+              </a>
+
+              <button
+                type="submit"
+                class="btn btn-primary"
+              >
+                Atualizar
+              </button>
+
+            </div>
+
+          </form>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

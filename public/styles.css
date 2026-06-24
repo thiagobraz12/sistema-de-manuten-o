@@ -1,0 +1,157 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f6f8;
+  margin: 0;
+}
+
+header {
+  background: #1e293b;
+  color: white;
+  padding: 15px;
+}
+
+header h1 {
+  margin: 0 0 10px 0;
+}
+
+header nav a {
+  color: white;
+  margin-right: 15px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+header nav a:hover {
+  text-decoration: underline;
+}
+
+main {
+  padding: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+}
+
+th, td {
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+/* th {
+  background: #f1f5f9;
+} */
+
+.acoes {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.acao-editar,
+.acao-excluir {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 14px;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.acao-editar {
+  color: #2563eb;
+}
+
+.acao-excluir {
+  color: #dc2626;
+}
+
+.form-excluir {
+  display: inline;
+}
+.form-padrao {
+  background: white;
+  padding: 20px;
+  max-width: 600px;
+  border: 1px solid #ddd;
+}
+
+.form-padrao label {
+  display: block;
+  margin-top: 15px;
+  font-weight: bold;
+}
+
+.form-padrao input,
+.form-padrao select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  box-sizing: border-box;
+}
+
+.form-padrao button {
+  margin-top: 20px;
+  padding: 10px;
+  background: #1e293b;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.form-padrao button:hover {
+  opacity: 0.9;
+}
+
+.card {
+  transition: all 0.2s ease-in-out;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
+}
+
+/* ===== ANIMAÇÕES ===== */
+.animate-card,
+.animate-fade {
+  opacity: 0;
+  transform: translateY(15px);
+  animation: fadeUp 0.6s ease forwards;
+}
+
+.delay-1 { animation-delay: .1s; }
+.delay-2 { animation-delay: .2s; }
+.delay-3 { animation-delay: .3s; }
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== HOVER CARDS ===== */
+.card-hover {
+  transition: all .25s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(0,0,0,.08);
+}
+
+/* ===== TEXTO CENTRAL DO GRÁFICO ===== */
+.chart-center-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 14px;
+  font-weight: 600;
+  color: #6c757d;
+  pointer-events: none;
+}
+
